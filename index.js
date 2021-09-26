@@ -6,4 +6,10 @@ const app = require('express')();
 require('./config/express')(app);
 require('./config/routes')(app);
 
+app.engine('hbs', handlebars({
+    extname: 'hbs'
+}));
+
+app.use(express.static(path.resolve(__dirname, './static')));
+
 app.listen(config.port, console.log(`Listening on port ${config.port}! Now its up to you...`));
