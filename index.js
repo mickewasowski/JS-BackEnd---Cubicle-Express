@@ -6,6 +6,8 @@ const app = express();
 
 initHandlebars(app);
 
+app.use(express.static('static'));
+
 app.all('/', (req, res) => {
     res.render('index');
 });
