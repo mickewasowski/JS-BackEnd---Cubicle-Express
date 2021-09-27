@@ -9,8 +9,11 @@ const create = (name, description, imageUrl, difficulty) => {
     Cube.add(cube);
 };
 
+const getById = (cubeId) => Cube.cubes.find(x => x.id == cubeId);
+
 const cubeService = {
     getAll,
+    getById,
     create,
 };
 
