@@ -12,6 +12,11 @@ const home = (req, res) => {
     });
 };
 
+const about = (req, res) => {
+    res.render('about');
+};
+
 router.get('/', home);
+router.get('/about', about);
 
 module.exports = router;
