@@ -3,7 +3,21 @@ const Cube = require('../models/Cube');
 
 const getAll = () => Cube.cubes;
 
-const getSearchCubes = (name, from, to) => Cube.cubes.filter(x => x.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()));
+const getSearchCubes = (name, from, to) => {
+    result = Cube.cubes;
+
+    if (name) {
+        result = result.filter(x => x.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()));
+    }
+    if (from != undefined) {
+        result = result.filter(x => Number(x.difficulty) >= from);
+    }
+
+    if (to != undefined) {
+        result = result.filter(x => Number(x.difficulty) <= to);
+    }
+    return result;
+};
 
 const create = (name, description, imageUrl, difficulty) => {
     let cube = new Cube(name, description, imageUrl, difficulty);
