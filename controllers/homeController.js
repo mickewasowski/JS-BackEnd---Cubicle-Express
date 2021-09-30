@@ -18,15 +18,21 @@ const about = (req, res) => {
 
 const search = (req, res) => {
 
-    let name = req.query.search;
-    let from = Number(req.query.from);
-    let to = Number(req.query.to);
+    let searchName = req.query.search;
+    let from = req.query.from;
+    let to = req.query.to;
 
-    let cubes = cubeService.getSearchCubes(name, from, to);
+    let cubes = cubeService.getSearchCubes(searchName, from, to);
 
     console.log(cubes);
 
-    res.render('index', { cubes });
+    res.render('index', {
+        title: 'Search',
+        searchName,
+        from,
+        to,
+        cubes
+    });
 };
 
 
