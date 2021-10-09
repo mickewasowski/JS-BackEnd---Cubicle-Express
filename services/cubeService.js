@@ -1,10 +1,10 @@
 const Cube = require('../models/Cube');
 
 
-const getAll = () => Cube.cubes;
+const getAll = () => Cube.find({}).lean();
 
 const getSearchCubes = (text, from, to) => {
-    let result = Cube.cubes;
+    let result = getAll();
 
     let fromNum = Number(from);
     let toNum = Number(to);
@@ -28,12 +28,17 @@ const getSearchCubes = (text, from, to) => {
 };
 
 const create = (name, description, imageUrl, difficulty) => {
-    let cube = new Cube(name, description, imageUrl, difficulty);
+    let cube = new Cube({
+        name,
+        description,
+        imageUrl,
+        difficulty,
+    });
 
-    Cube.add(cube);
+    return cube.save();
 };
 
-const getById = (cubeId) => Cube.cubes.find(x => x.id == cubeId);
+const getById = (cubeId) => Cube.findById(cubeId);
 
 const cubeService = {
     getAll,

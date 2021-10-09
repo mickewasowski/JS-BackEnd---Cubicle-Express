@@ -5,25 +5,25 @@ const cubeService = require('../services/cubeService');
 const router = express.Router();
 
 const getCreateCube = (req, res) => {
-    let cubes = cubeService.getAll();
-
-    console.log(cubes);
-
-    res.render('create');
+    res.render('./cube/create');
 };
 
-const postCreateCube = (req, res) => {
+const postCreateCube = async (req, res) => {
     let { name, description, imageUrl, difficulty } = req.body;
 
-    cubeService.create(name, description, imageUrl, difficulty);
+    try {
+        await cubeService.create(name, description, imageUrl, difficulty);
+        res.redirect('/');
 
-    res.redirect('/');
-};
+    } catch (err) {
+        res.status(400).send(err.message).end();
+    }
+}
 
-const cubeDetails = (req, res) => {
-    let cube = cubeService.getById(req.params.cubeId);
+const cubeDetails = async (req, res) => {
+    let cube = await cubeService.getById(req.params.cubeId);
 
-    res.render('details', cube);
+    res.render('./cube/details', cube);
 };
 
 router.get('/create', getCreateCube);
