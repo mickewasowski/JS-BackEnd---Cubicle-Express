@@ -10,8 +10,13 @@ const create = async (name, description, imageUrl) => {
     return accessory.save();
 };
 
+const getAll = async () => {
+    return Accessory.find({}).lean();
+};
+
 const accessoryService = {
     create,
+    getAll,
 
 };
 
