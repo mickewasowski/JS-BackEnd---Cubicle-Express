@@ -7,10 +7,6 @@ const home = async (req, res) => {
 
     let cubes = await cubeService.getAll();
 
-    cubes.forEach(x => x._id.toString());
-
-    console.log(cubes);
-
     res.render('index', {
         cubes
     });

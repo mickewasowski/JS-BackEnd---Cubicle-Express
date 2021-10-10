@@ -1,6 +1,5 @@
 const Cube = require('../models/Cube');
 
-
 const getAll = () => Cube.find({}).lean();
 
 const getSearchCubes = (text, from, to) => {
