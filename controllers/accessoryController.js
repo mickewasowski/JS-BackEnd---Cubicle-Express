@@ -5,7 +5,7 @@ const accessoryService = require('../services/accessoryService');
 const router = express.Router();
 
 const getCreateAccessory = (req, res) => {
-    res.render('../views/accessory/create.hbs');
+    res.render('accessory/create');
 };
 
 const postCreateAccessory = async (req, res) => {
