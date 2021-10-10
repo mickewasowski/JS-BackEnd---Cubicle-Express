@@ -16,15 +16,13 @@ const about = (req, res) => {
     res.render('about');
 };
 
-const search = (req, res) => {
+const search = async (req, res) => {
 
     let searchName = req.query.search;
     let from = req.query.from;
     let to = req.query.to;
 
-    let cubes = cubeService.getSearchCubes(searchName, from, to);
-
-    console.log(cubes);
+    let cubes = await cubeService.getSearchCubes(searchName, from, to);
 
     res.render('index', {
         title: 'Search',

@@ -4,8 +4,8 @@ const Accessory = require('../models/Accessory');
 
 const getAll = () => Cube.find({}).lean();
 
-const getSearchCubes = (text, from, to) => {
-    let result = getAll();
+const getSearchCubes = async (text, from, to) => {
+    let result = await getAll();
 
     let fromNum = Number(from);
     let toNum = Number(to);
