@@ -39,7 +39,9 @@ const create = (name, description, imageUrl, difficulty) => {
     return cube.save();
 };
 
-const getById = (cubeId) => Cube.findById(cubeId).lean();
+const getById = (cubeId) => {
+    return Cube.findById(cubeId).populate('accessories').lean();
+};
 
 const attachAccessory = async (cubeId, accessoryId) => {
     let cube = await Cube.findById(cubeId);
