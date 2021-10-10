@@ -37,7 +37,7 @@ const create = (name, description, imageUrl, difficulty) => {
     return cube.save();
 };
 
-const getById = (cubeId) => Cube.findById(cubeId);
+const getById = (cubeId) => Cube.findById(cubeId).lean();
 
 const cubeService = {
     getAll,
