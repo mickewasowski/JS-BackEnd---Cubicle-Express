@@ -8,8 +8,8 @@ const accessoryService = require('../services/accessoryService');
 
 const getAttach = async (req, res) => {
     let cube = await cubeService.getById(req.params.cubeId);
-
-    let accessories = await accessoryService.getAll();
+    let accessoriesIds = cube.accessories;
+    let accessories = await accessoryService.getRemaining(accessoriesIds);
 
     res.render('cube/accessory/attach', { cube, accessories });
 };

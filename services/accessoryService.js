@@ -14,9 +14,14 @@ const getAll = async () => {
     return Accessory.find({}).lean();
 };
 
+const getRemaining = async (accessoryIds) => {
+    return Accessory.find({ _id: { $nin: accessoryIds } }).lean();
+};
+
 const accessoryService = {
     create,
     getAll,
+    getRemaining,
 
 };
 
