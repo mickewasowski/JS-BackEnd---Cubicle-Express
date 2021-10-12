@@ -17,4 +17,17 @@ router.get('/register', (req, res) => {
     res.render('user/register');
 });
 
+router.post('/register', async (req, res) => {
+    let { username, password, repeatPassword } = req.body;
+
+    let response = await userService.register(username, password, repeatPassword);
+
+    if (typeof response == 'object') {
+        res.redirect('login');
+    } else {
+        res.redirect('register');
+    }
+
+});
+
 module.exports = router;
