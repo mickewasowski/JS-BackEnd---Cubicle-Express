@@ -1,11 +1,13 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const { jwtSecret } = require('../constants');
+const { jwtSign } = require('../utils/jwtUtils');
 
 exports.register = async function (username, password, repeatPass) {
 
-    let user = await User.find({ username: username }).exec();
+    let user = await User.findOne({ username: username }).exec();
 
-    if (user.length > 0) {
+    if (user) {
         return "Username already in use!";
     }
 
@@ -32,6 +34,14 @@ exports.login = function (username, password) {
             }
         })
         .catch(() => null);
+}
 
+exports.createToken = function (user) {
+    let payload = {
+        _id: user._id,
+        username: user.username
+    };
+
+    return jwtSign(payload, jwtSecret);
 }
 

@@ -12,11 +12,15 @@ router.post('/login', async (req, res) => {
 
     let user = await userService.login(username, password);
 
-    if (user) {
-        res.redirect('/');
-    } else {
-        res.redirect('/404');
+    if (!user) {
+        return res.redirect('/404');
     }
+
+    let token = await userService.createToken(user);
+
+    console.log(token);
+
+    res.redirect('/');
 });
 
 router.get('/register', (req, res) => {
