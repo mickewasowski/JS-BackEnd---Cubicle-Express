@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -15,8 +16,8 @@ userSchema.static('findByUsername', function (username) {
     return this.findOne({ username });
 });
 
-userSchema.method('vaidatePassword', function (password) {
-    return bcyprt.compare(password, this.password);
+userSchema.method('validatePassword', function (password) {
+    return bcrypt.compare(password, this.password);
 });
 
 const User = mongoose.model('User', userSchema);

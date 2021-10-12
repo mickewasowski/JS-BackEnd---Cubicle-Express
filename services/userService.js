@@ -30,7 +30,8 @@ exports.login = function (username, password) {
             } else {
                 throw { message: 'Invalid username or password!' }
             }
-        });
+        })
+        .catch(() => null);
 
 }
 
