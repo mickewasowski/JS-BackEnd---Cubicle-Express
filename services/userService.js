@@ -22,7 +22,7 @@ exports.register = async function (username, password, repeatPass) {
 exports.login = function (username, password) {
     return User.findByUsername(username)
         .then(user => {
-            return Promise.all([bcrypt.compare(password, user.password), user])
+            return Promise.all([user.validatePassword(password), user])
         })
         .then(([isValid, user]) => {
             if (isValid) {

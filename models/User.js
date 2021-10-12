@@ -15,6 +15,10 @@ userSchema.static('findByUsername', function (username) {
     return this.findOne({ username });
 });
 
+userSchema.method('vaidatePassword', function (password) {
+    return bcyprt.compare(password, this.password);
+});
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
