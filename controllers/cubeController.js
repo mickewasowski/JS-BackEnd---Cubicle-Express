@@ -6,10 +6,18 @@ const cubeAccessoryController = require('./cubeAccessoryController');
 const router = express.Router();
 
 const getCreateCube = (req, res) => {
+    if (!req.user) {
+        return res.redirect('/user/login');
+    }
+
     res.render('./cube/create');
 };
 
 const postCreateCube = async (req, res) => {
+    if (!req.user) {
+        return res.redirect('/user/login');
+    }
+
     let { name, description, imageUrl, difficulty } = req.body;
 
     try {
@@ -52,7 +60,9 @@ const getDeleteCubePage = async (req, res) => {
 };
 
 const postDeleteCubePage = async (req, res) => {
+    await cubeService.deleteCube(req.params.cubeId);
 
+    res.redirect('/');
 };
 
 router.get('/create', getCreateCube);
