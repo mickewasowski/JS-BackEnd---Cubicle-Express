@@ -1,6 +1,8 @@
 const express = require('express');
 const userService = require('../services/userService');
 
+const { jwtTokenName } = require('../constants');
+
 const router = express.Router();
 
 router.get('/login', (req, res) => {
@@ -18,7 +20,7 @@ router.post('/login', async (req, res) => {
 
     let token = await userService.createToken(user);
 
-    res.cookie('jwt_token', token, {
+    res.cookie(jwtTokenName, token, {
         httpOnly: true,
     });
 

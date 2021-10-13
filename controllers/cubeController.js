@@ -28,6 +28,10 @@ const cubeDetails = async (req, res) => {
 };
 
 const getEditCubePage = async (req, res) => {
+    if (!req.user) {
+        return res.redirect('/user/login');
+    }
+
     let cube = await cubeService.getById(req.params.cubeId);
 
     res.render('cube/edit', { cube });
@@ -38,6 +42,10 @@ const postEditCubePage = async (req, res) => {
 };
 
 const getDeleteCubePage = async (req, res) => {
+    if (!req.user) {
+        return res.redirect('/user/login');
+    }
+
     let cube = await cubeService.getById(req.params.cubeId);
 
     res.render('cube/delete', { cube });
