@@ -52,9 +52,12 @@ const attachAccessory = async (cubeId, accessoryId) => {
     return cube.save();
 };
 
+const updateCube = async (cubeId, cubeData) => await Cube.findByIdAndUpdate(cubeId, cubeData, { runValidators: true });
+
 const deleteCube = (cubeId) => Cube.findByIdAndDelete(cubeId);
 
 const cubeService = {
+    updateCube,
     deleteCube,
     attachAccessory,
     getAll,

@@ -46,7 +46,11 @@ const getEditCubePage = async (req, res) => {
 };
 
 const postEditCubePage = async (req, res) => {
+    let { name, description, imageUrl, difficulty } = req.body;
 
+    await cubeService.updateCube(req.params.cubeId, { name, description, imageUrl, difficulty });
+
+    return res.redirect(`/cube/${req.params.cubeId}`);
 };
 
 const getDeleteCubePage = async (req, res) => {

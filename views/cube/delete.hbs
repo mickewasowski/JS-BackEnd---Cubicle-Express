@@ -17,11 +17,12 @@
             <option value="5">5 - Expert</option>
             <option value="6">6 - Hardcore</option>
             </select>
-            <script>
-                { { !--Dirty hack-- } }
-                document.getElementById('difficulty').value = {{ cube.difficulty }}
-            </script>
             <input type="submit" value="Delete">
         </form>
     </div>
 </main>
+
+<script>
+    { { !--Dirty hack-- } }
+    document.getElementById('difficulty').value = {{ cube.difficulty }}
+</script>
