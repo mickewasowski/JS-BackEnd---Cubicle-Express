@@ -18,7 +18,9 @@ router.post('/login', async (req, res) => {
 
     let token = await userService.createToken(user);
 
-    console.log(token);
+    res.cookie('jwt_token', token, {
+        httpOnly: true,
+    });
 
     res.redirect('/');
 });
