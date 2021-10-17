@@ -32,14 +32,26 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    let { username, password, repeatPassword } = req.body;
+    //previous registration validation => before adding the virtual method in the user model
+    // let { username, password, repeatPassword } = req.body;
 
-    let response = await userService.register(username, password, repeatPassword);
+    // let response = await userService.register(username, password, repeatPassword);
 
-    if (typeof response == 'object') {
+    // if (typeof response == 'object') {
+    //     res.redirect('login');
+    // } else {
+    //     res.redirect('register');
+    // }
+
+    try {
+        let { username, password, repeatPassword } = req.body;
+
+        await userService.register(username, password, repeatPassword);
+
         res.redirect('login');
-    } else {
-        res.redirect('register');
+    }
+    catch (error) {
+        res.status(400).send(error.message);
     }
 
 });
