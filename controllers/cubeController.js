@@ -9,20 +9,22 @@ const { isOwnCube } = require('../middlewares/cubeAuthMiddleware');
 const router = express.Router();
 
 const getCreateCube = (req, res) => {
-
     res.render('./cube/create');
 };
 
 const postCreateCube = async (req, res) => {
-
     let { name, description, imageUrl, difficulty } = req.body;
 
     try {
         await cubeService.create(name, description, imageUrl, difficulty, req.user._id);
         res.redirect('/');
 
-    } catch (err) {
-        res.status(400).send(err.message).end();
+    } catch (error) {
+        let errors = Object.keys(error.errors).map(x => error.errors[x].message);
+
+        res.locals.errors = errors;
+
+        res.render('cube/create');
     }
 }
 
@@ -58,7 +60,7 @@ router.get('/create', isAuth, getCreateCube);
 router.post('/create', isAuth, postCreateCube);
 
 router.get('/:cubeId', cubeDetails);
-router.use('/:cubeId/accessory', cubeAccessoryController)
+router.use('/:cubeId/accessory', isAuth, isOwnCube, cubeAccessoryController)
 
 router.get('/:cubeId/edit', isAuth, isOwnCube, getEditCubePage);
 router.post('/:cubeId/edit', isAuth, isOwnCube, postEditCubePage);
