@@ -1,5 +1,7 @@
 exports.errorHandler = function (error, req, res, next) {
     if (error) {
-        res.redirect('404');
+        res.locals.errors = [error];
+
+        res.render('404');
     }
 }
