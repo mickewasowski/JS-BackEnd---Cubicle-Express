@@ -28,12 +28,13 @@ const getSearchCubes = async (text, from, to) => {
     return result;
 };
 
-const create = (name, description, imageUrl, difficulty) => {
+const create = (name, description, imageUrl, difficulty, creatorId) => {
     let cube = new Cube({
         name,
         description,
         imageUrl,
         difficulty,
+        creator: creatorId,
     });
 
     return cube.save();

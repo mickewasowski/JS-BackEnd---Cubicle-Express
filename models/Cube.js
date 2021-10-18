@@ -6,14 +6,14 @@ const cubeSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 5,
-        validate: [/^[a-zA-Z0-9\/s]+$/, 'Name must have only english alphabetical characters, numeric characters or white space!'],
+        validate: [/^[a-zA-Z0-9\s]+$/, 'Name must have only english alphabetical characters, numeric characters or white space!'],
     },
     description: {
         type: String,
         required: true,
         maxlength: 100,
         minlength: 20,
-        validate: [/^[a-zA-Z0-9\/s]+$/, 'Description must have only english alphabetical characters, numeric characters or white space!'],
+        validate: [/^[a-zA-Z0-9\s]+$/, 'Description must have only english alphabetical characters, numeric characters or white space!'],
     },
     imageUrl: {
         type: String,
@@ -31,7 +31,11 @@ const cubeSchema = new mongoose.Schema({
             type: mongoose.Types.ObjectId,
             ref: 'Accessory'
         }
-    ]
+    ],
+    creator: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+    }
 });
 
 const Cube = mongoose.model('Cube', cubeSchema);
