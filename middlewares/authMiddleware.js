@@ -16,6 +16,9 @@ exports.auth = function (req, res, next) {
 
         req.user = decodedToken;
 
+        //for the dinamic navbar
+        res.locals.user = decodedToken;
+
         next();
     });
 };
