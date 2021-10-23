@@ -17,6 +17,15 @@ const userSchema = new mongoose.Schema({
     },
 });
 
+userSchema.pre('save', function(next) {
+    bcrypt.hash(this.password, 10)
+        .then(hash => {
+            this.password = hash;
+            
+            next();
+        });
+});
+
 userSchema.static('findByUsername', function (username) {
     return this.findOne({ username });
 });
@@ -31,7 +40,7 @@ userSchema.virtual('repeatPassword')
         if (v !== this.password) {
             throw new Error('Password mismatch!');
         }
-    })
+    });
 
 const User = mongoose.model('User', userSchema);
 

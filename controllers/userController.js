@@ -51,6 +51,7 @@ router.post('/register', async (req, res) => {
         res.redirect('login');
     }
     catch (error) {
+
         res.status(400).render('user/register', { error: error.message });
 
         //error handler

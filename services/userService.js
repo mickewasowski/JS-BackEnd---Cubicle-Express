@@ -3,22 +3,14 @@ const bcrypt = require('bcrypt');
 const { jwtSecret } = require('../constants');
 const { jwtSign } = require('../utils/jwtUtils');
 
-exports.register = async function (username, password, repeatPass) {
+exports.register =  function (username, password, repeatPass) {  //async
 
-    let user = await User.findOne({ username: username }).exec();
-
-    if (user) {
-        return "Username already in use!";
+    if (password != repeatPass) {
+        throw {message: 'Passwords do not match!'};
+    }else{
+        return User.create({username, password, repeatPass});
     }
-
-    if (password == repeatPass) {
-
-        return bcrypt.hash(password, 9)
-            .then(hash => User.create({ username, password: hash }));
-    } else {
-        return "Passwords do not match!";
-    }
-
+    
 };
 
 exports.login = function (username, password) {
@@ -30,7 +22,7 @@ exports.login = function (username, password) {
             if (isValid) {
                 return user;
             } else {
-                throw { message: 'Invalid username or password!' }
+                throw { message: 'Invalid username or password!' };
             }
         })
         .catch(() => null);

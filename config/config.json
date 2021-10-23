@@ -1,7 +1,7 @@
 {
     "development": {
         "PORT": 5000,
-        "DB_CONNECTION_STRING": "mongodb://localhost:27017/cubicleDB"
+        "DB_CONNECTION_STRING": "mongodb://localhost:27017/cubesDB"
     },
     "production": {
         "PORT": 80,
